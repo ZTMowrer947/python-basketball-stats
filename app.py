@@ -44,6 +44,11 @@ def balance_teams(cleaned_players, teams):
 
 
 def select_item_from_menu(options):
+    """
+    Displays a menu for the provided list of options, then repeated prompts the user
+    for an option until a valid one is selected, then returns the selected option.
+    """
+
     # Setup menu
     valid_index_range = range(0, len(options))
     selected_index = -1
@@ -74,19 +79,28 @@ if __name__ == '__main__':
 
     # Print introductory menu
     print("Basketball Team Statistics Tool")
+    intro_menu_options = ["Display Team Statistics", "Exit"]
+    selected_option = select_item_from_menu(intro_menu_options)
 
-    # Prompt user for team to select
-    selected_team = select_item_from_menu(TEAMS)
-    team_players = teams_with_players[selected_team]
+    print()
 
-    # Print team data
-    print(f"\n{selected_team} Team Statistics")
-    print("------------------------------------")
-    print(f"Total players: {len(team_players)}\n")
-    print("Players on the team:")
+    # User chose to display stats for a team
+    if selected_option == intro_menu_options[0]:
+        # Prompt user for team to select
+        selected_team = select_item_from_menu(TEAMS)
+        team_players = teams_with_players[selected_team]
 
-    player_names = [player['name'] for player in team_players]
-    joined_names = ", ".join(player_names)
-    print(f"\t{joined_names}")
+        # Print team data
+        print(f"\n{selected_team} Team Statistics")
+        print("------------------------------------")
+        print(f"Total players: {len(team_players)}\n")
+        print("Players on the team:")
+
+        player_names = [player['name'] for player in team_players]
+        joined_names = ", ".join(player_names)
+        print(f"\t{joined_names}")
+    # User chose to exit
+    else:
+        print("Bye")
 
 
