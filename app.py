@@ -26,19 +26,24 @@ def clean_data(players):
     return cleaned_players
 
 
-def balance_teams(cleaned_players, teams):
+def balance_teams(players, teams):
     """
     Split the given list of players into teams such that
     each team has an equal number of players.
     """
-    players_per_team = len(cleaned_players) // len(teams)
+    players_per_team = len(players) // len(teams)
     teams_with_players = {}
 
-    for index, team in enumerate(teams):
-        start = index * players_per_team
-        end = start + players_per_team
+    # Split players based on whether they are experienced
+    experienced_players = [player for player in players if player['experience'] is True]
+    inexperienced_players = [player for player in players if player not in experienced_players]
 
-        players_on_team = cleaned_players[start:end]
+    for index, team in enumerate(teams):
+        start = index * players_per_team // 2
+        end = start + players_per_team // 2
+
+        players_on_team = experienced_players[start:end]
+        players_on_team.extend(inexperienced_players[start:end])
 
         teams_with_players[team] = players_on_team
 
