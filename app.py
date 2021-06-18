@@ -97,15 +97,31 @@ if __name__ == '__main__':
         selected_team = select_item_from_menu(TEAMS)
         team_players = teams_with_players[selected_team]
 
+        # Split players based on whether they are experienced
+        experienced_players = [player for player in team_players if player['experience'] is True]
+        inexperienced_players = [player for player in team_players if player not in experienced_players]
+
+        average_height = sum([player['height'] for player in team_players]) / len(team_players)
+
         # Print team data
         print(f"\n{selected_team} Team Statistics")
         print("------------------------------------")
-        print(f"Total players: {len(team_players)}\n")
+        print(f"Total experienced players: {len(experienced_players)}")
+        print(f"Total inexperienced players: {len(inexperienced_players)}")
+        print(f"Total players: {len(team_players)}")
+        print(f"Average player height: {average_height}\n")
         print("Players on the team:")
 
         player_names = [player['name'] for player in team_players]
         joined_names = ", ".join(player_names)
-        print(f"\t{joined_names}")
+        print(f"\t{joined_names}\n")
+
+        guardians = [", ".join(player['guardians']) for player in team_players]
+        guardian_names = ", ".join(guardians)
+
+        print("Guardians:")
+        print(f"\t{guardian_names}")
+
     # User chose to exit
     else:
         print("Bye")
