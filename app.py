@@ -16,6 +16,8 @@ def clean_data(players):
                 cleaned_value = int(value[0:2])
             elif key == "experience":
                 cleaned_value = value == "YES"
+            elif key == "guardians":
+                cleaned_value = value.split(" and ")
 
             cleaned_player[key] = cleaned_value
 
