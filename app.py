@@ -84,46 +84,51 @@ if __name__ == '__main__':
     cleaned_players = clean_data(PLAYERS)
     teams_with_players = balance_teams(cleaned_players, TEAMS)
 
-    # Print introductory menu
-    print("Basketball Team Statistics Tool")
+    selected_option = ""
     intro_menu_options = ["Display Team Statistics", "Exit"]
-    selected_option = select_item_from_menu(intro_menu_options)
 
-    print()
+    while selected_option != intro_menu_options[1]:
+        # Print introductory menu
+        print("Basketball Team Statistics Tool")
 
-    # User chose to display stats for a team
-    if selected_option == intro_menu_options[0]:
-        # Prompt user for team to select
-        selected_team = select_item_from_menu(TEAMS)
-        team_players = teams_with_players[selected_team]
+        selected_option = select_item_from_menu(intro_menu_options)
 
-        # Split players based on whether they are experienced
-        experienced_players = [player for player in team_players if player['experience'] is True]
-        inexperienced_players = [player for player in team_players if player not in experienced_players]
+        print()
 
-        average_height = sum([player['height'] for player in team_players]) / len(team_players)
+        # User chose to display stats for a team
+        if selected_option == intro_menu_options[0]:
+            # Prompt user for team to select
+            selected_team = select_item_from_menu(TEAMS)
+            team_players = teams_with_players[selected_team]
 
-        # Print team data
-        print(f"\n{selected_team} Team Statistics")
-        print("------------------------------------")
-        print(f"Total experienced players: {len(experienced_players)}")
-        print(f"Total inexperienced players: {len(inexperienced_players)}")
-        print(f"Total players: {len(team_players)}")
-        print(f"Average player height: {average_height}\n")
-        print("Players on the team:")
+            # Split players based on whether they are experienced
+            experienced_players = [player for player in team_players if player['experience'] is True]
+            inexperienced_players = [player for player in team_players if player not in experienced_players]
 
-        player_names = [player['name'] for player in team_players]
-        joined_names = ", ".join(player_names)
-        print(f"\t{joined_names}\n")
+            average_height = sum([player['height'] for player in team_players]) / len(team_players)
 
-        guardians = [", ".join(player['guardians']) for player in team_players]
-        guardian_names = ", ".join(guardians)
+            # Print team data
+            print(f"\n{selected_team} Team Statistics")
+            print("------------------------------------")
+            print(f"Total experienced players: {len(experienced_players)}")
+            print(f"Total inexperienced players: {len(inexperienced_players)}")
+            print(f"Total players: {len(team_players)}")
+            print(f"Average player height: {average_height}\n")
+            print("Players on the team:")
 
-        print("Guardians:")
-        print(f"\t{guardian_names}")
+            player_names = [player['name'] for player in team_players]
+            joined_names = ", ".join(player_names)
+            print(f"\t{joined_names}\n")
 
-    # User chose to exit
-    else:
-        print("Bye")
+            guardians = [", ".join(player['guardians']) for player in team_players]
+            guardian_names = ", ".join(guardians)
+
+            print("Guardians:")
+            print(f"\t{guardian_names}\n")
+
+            input("Press enter to continue...")
+            print("\n\n")
+
+    print("Bye")
 
 
